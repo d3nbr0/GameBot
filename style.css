@@ -1,0 +1,96 @@
+body, html
+{
+	background-color: #E7E7E7;
+}
+
+.container
+{
+	position: relative;
+	margin: 0 auto;
+	width: device-width;
+	height: device-height;
+}
+
+.auth
+{
+	margin: 0 auto;
+	margin-top: 20%;
+	text-align: center;
+	width: 30%;
+	height: 15%;
+}
+
+.authinput { 
+	border-style:solid; 
+	font-size:1vw; 
+	padding:0.5vw; 
+	border-width:0.05vw;
+	border-radius:0.51vw; 
+	border-color:#333333; 
+	color:#3d3d3d; 
+	box-shadow: 0px 0px 0.25vw 0px rgba(42,42,42,.75);  
+} 
+
+.authinput:focus { 
+	outline:none; 
+} 
+
+.button
+{
+	border-style: solid;
+	font-family: "Calibry", arial;
+	font-size: 0.8vw; 
+	padding: 0.5vw; 
+	border-width:0.05vw;
+	border-radius:0.51vw; 
+	border-color: #000000;
+	background-color: #5A971C;
+	color: #ffffff;
+	box-shadow: 0px 0px 0.25vw 0px rgba(42,42,42,.75);  
+}
+
+h2
+{
+	font-size: 1.4vw;
+	font-family: 'Calibry', arial;
+}
+
+h3
+{
+	font-size: 1vw;
+	font-family: 'Calibry', arial;
+}
+
+#error
+{
+	color: red;
+}
+
+#ok
+{
+	color: green;
+}
+
+
+h1
+{
+	font-size: 2vw;
+	font-family: 'Calibry', arial;
+}
+
+.header
+{
+	margin: 0 auto;
+	text-align: center;
+	width: 40%;
+	height: 15%;
+}
+
+.menu
+{
+	margin: 0 auto;
+	margin-top: 5%;
+	text-align: center;
+	width: 60%;
+	height: 60%;
+}
