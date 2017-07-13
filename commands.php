@@ -30,20 +30,36 @@
 	
 	function SendMoney($user_id, $args)
 	{
-		if(count($args) == 3 && is_numeric($args[2]) && GetID($args[1]) != "no_user")
+		$totalSlash = substr_count($args[1], '/');
+		for($i = 0; $i < $totalSlash; $i++)
 		{
-			$tui = GetID($args[1]);
-			$targetUser = GetUserStats($tui);
+			$args[1] = strstr($args[1], '/');
+			$args[1] = substr($args[1], 1);
+		}	
+		$user_info = json_decode(file_get_contents("https://api.vk.com/method/utils.resolveScreenName?screen_name=".$args[1]."&v=5.0"));
+		$userd = "no_user";
+		if($user_info->response->type == "user")
+		{
+			$userd = $user_info->response->object_id;
+		}
+		else
+		{
+			$userd = "no_user";
+		}
+		
+		if(count($args) == 3 && is_numeric($args[2]) && $userd != "no_user")
+		{
+			$targetUser = GetUserStats($userd);
 			$user = GetUserStats($user_id);
-			if(!empty($targetUser["user_id"]))
+			if(!empty($targetUser["uid"]))
 			{
 				if($user["money"] >= $args[2])
 				{
 					if($args[2] > 0)
 					{
 						LostMoney($user_id, $args[2]);
-						AddMoney($tui, $args[2]);
-						$user_info = json_decode(file_get_contents("https://api.vk.com/method/users.get?user_ids={$tui}&v=5.0")); 
+						AddMoney($userd, $args[2]);
+						$user_info = json_decode(file_get_contents("https://api.vk.com/method/users.get?user_ids={$userd}&v=5.0")); 
 						$user_name = $user_info->response[0]->first_name;
 						return "вы отправили пользователю ".$user_name." ".$args[2]." монет &#9989;";
 					}
@@ -58,27 +74,6 @@
 		}
 		else
 			return "ошибка в аргументах команды (используйте: перевод [ссылка] [сумма]) &#10060;";
-	}
-	
-	function GetID($ulink)
-	{
-		$totalSlash = substr_count($ulink, '/');
-		for($i = 0; $i < $totalSlash; $i++)
-		{
-			$ulink = strstr($ulink, '/');
-			$ulink = substr($ulink, 1);
-		}
-		
-		$user_info = json_decode(file_get_contents("https://api.vk.com/method/utils.resolveScreenName?screen_name=".$ulink."&v=5.0"));
-
-		if($user_info->response->type == "user")
-		{
-			return $user_info->response->object_id;
-		}
-		else
-		{
-			return "no_user";
-		}
 	}
 	
 	function GetProfile($user_id)
